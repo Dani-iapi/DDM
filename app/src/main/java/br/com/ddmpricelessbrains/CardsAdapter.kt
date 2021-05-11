@@ -3,17 +3,18 @@ package br.com.ddmpricelessbrains
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
 
-class CardsAdapter(val cards :List<Cards>,
-                   val onClick: (Cards) -> Unit) {
+class CardsAdapter(
+    val cards: List<Cards>,
+    val onClick: (Cards) -> Unit
+): RecyclerView.Adapter<CardsAdapter.CardsViewHolder>() {
 
     class CardsViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val cardNome: TextView
@@ -29,10 +30,11 @@ class CardsAdapter(val cards :List<Cards>,
         }
     }
 
-    fun getItemCount() = this.cards.size
+    override fun getItemCount() = this.cards.size
 
-        fun onCreateViewHolder(
-                parent: ViewGroup, viewType: Int): CardsViewHolder {
+    override fun onCreateViewHolder(
+            parent: ViewGroup, viewType: Int
+        ): CardsViewHolder {
 
             val view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.adapt_cards, parent, false)
@@ -40,7 +42,7 @@ class CardsAdapter(val cards :List<Cards>,
             val holder = CardsViewHolder(view)
             return holder
         }
-        fun onBindViewHolder(holder: CardsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CardsViewHolder, position: Int) {
                 val context = holder.itemView.context
 
                 val cards = cards[position]
@@ -50,15 +52,20 @@ class CardsAdapter(val cards :List<Cards>,
 
                 Picasso.with(context).load(cards.foto).fit().into(holder.cardImg,
 
-                        object: com.squareup.picasso.Callback{
-                            override fun onSuccess() {
-                                holder.cardProgress.visibility = View.GONE
-                            }
-                            override fun onError() {
-                                holder.cardProgress.visibility = View.GONE
-                            }
-                        })
+                    object : com.squareup.picasso.Callback {
+                        override fun onSuccess() {
+                            holder.cardProgress.visibility = View.GONE
+                        }
+
+                        override fun onError() {
+                            holder.cardProgress.visibility = View.GONE
+                        }
+                    })
 
                 holder.itemView.setOnClickListener {onClick(cards)}
             }
+
+    interface ItemClickListener {
+        fun onItemClick(view: View?, position: Int)
+    }
 }

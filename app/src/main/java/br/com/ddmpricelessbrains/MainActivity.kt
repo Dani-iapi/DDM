@@ -1,43 +1,50 @@
 package br.com.ddmpricelessbrains
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View.VISIBLE
+import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.navigation.NavigationView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.ddmpricelessbrains.ui.LojaActivity
 import br.com.ddmpricelessbrains.ui.SettingsActivity
+import br.com.ddmpricelessbrains.ui.home.HomeFragment
+import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.*
+import kotlinx.android.synthetic.main.activity_loja.*
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.system.exitProcess
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+abstract class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private var cards = listOf<Cards>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
-        recyclerCards.layoutManager = LinearLayoutManager(this)
+        recyclerCards?.layoutManager = LinearLayoutManager(this)
         recyclerCards?.itemAnimator = DefaultItemAnimator()
         recyclerCards?.setHasFixedSize(true)
+
 
 //        val fab: FloatingActionButton = findViewById(R.id.fab)
 //        fab.setOnClickListener { view ->
@@ -56,7 +63,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
-        (menu?.findItem(R.id.action_buscar)?.actionView as? SearchView)?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        (menu.findItem(R.id.action_buscar)?.actionView as? SearchView)?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 Toast.makeText(this@MainActivity, "Buscando", Toast.LENGTH_LONG).show()
@@ -78,47 +85,56 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        val id = item?.itemId
+        var progressBar = findViewById<ProgressBar>(R.id.cardProgress)
+        val id = item.itemId
 
         if (id == R.id.action_atualizar) {
             Toast.makeText(this, "Botão de atualizar", Toast.LENGTH_LONG).show()
+            progressBar = findViewById<ProgressBar>(R.id.progressBar) as ProgressBar
+            for(i in 0..10) {
+                Thread.sleep(1000)
+                progressBar.progress = i * 10
+            }
         } else if (id == R.id.action_settings) {
             Toast.makeText(this, "Botão de configurações", Toast.LENGTH_LONG).show()
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
 
-        return item?.let { super.onOptionsItemSelected(it) }
+        return item.let { super.onOptionsItemSelected(it) }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_home -> {
-                val intent = Intent(this, LojaActivity::class.java)
-                startActivity(intent)
+                R.id.nav_sair -> {
+                val returnIntent = Intent();
+                returnIntent.putExtra("result","Saída do BrewerApp");
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
+                }
             }
-            R.id.nav_sair -> {
-                application.onTerminate()
-            }
-        }
-        return true
+
+        return false
 
     }
+
     override fun onResume() {
         super.onResume()
 // task para recuperar as disciplinas
-        taskDisciplinas()
+        taskCards()
     }
-    fun taskDisciplinas() {
-        cards = CardService.getCards(this)
+    fun taskCards() {
+        this.cards = CardService.getCards(this)
 // atualizar lista
-        recyclerCards?.adapter = CardsAdapter(cards) {onClickDisciplina(it)}
+        recyclerCards?.adapter = CardsAdapter(cards) {onClickCards(it)}
     }
     // tratamento do evento de clicar em uma disciplina
-    fun onClickDisciplina(card: Cards) {
-        Toast.makeText(this, "Clicou pet ${card.nome}", Toast.LENGTH_SHORT)
-                .show()
+    fun onClickCards(card: Cards) {
+        Toast.makeText(this, "Clicou pet ${card.nome}", Toast.LENGTH_SHORT).show()
     }
 
+    fun QuitApp() {
+        finish()
+        System.exit(0)
+    }
 }

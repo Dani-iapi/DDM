@@ -1,4 +1,5 @@
 package br.com.ddmpricelessbrains
+import java.io.Serializable
 
 class Cards : Serializable {
     var id:Long = 0

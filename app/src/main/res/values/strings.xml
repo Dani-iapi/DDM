@@ -17,5 +17,7 @@
     <string name="menu_loja">Loja</string>
     <string name="menu_Perfil">Meu Perfil</string>
     <string name="menu_config">Minhas configurações</string>
+    <string name="cardNome">Pet</string>
+    <string name="menu_home">Home</string>
 
 </resources>
