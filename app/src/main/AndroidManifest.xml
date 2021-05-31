@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.ddmpricelessbrains">
+    package="br.com.projetoddmpricelessbrains">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -10,18 +10,17 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DDM">
-        <activity android:name=".ui.CardActivity"></activity>
-        <activity android:name=".ui.LojaActivity" />
-        <activity android:name=".ui.ClientesActivity" />
-        <activity android:name=".ui.CatalogoActivity" />
-        <activity android:name=".ui.AgendaActivity" />
-        <activity android:name=".ui.SettingsActivity" />
-        <activity android:name=".ui.SecondFragment" />
+        android:theme="@style/Theme.ProjetoDDM"
+        android:usesCleartextTraffic="true">
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.DDM.NoActionBar">
+            android:name=".HomeActivity"
+            android:theme="@style/AppTheme.Toolbar" />
+        <activity
+            android:name=".LojaActivity"
+            android:theme="@style/AppTheme.Toolbar" />
+        <activity android:name=".AcaoActivity" />
+        <activity android:name=".CadastrarActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

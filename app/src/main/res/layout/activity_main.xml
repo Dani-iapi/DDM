@@ -1,42 +1,70 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:openDrawer="start">
+    android:orientation="vertical"
+    android:background="@drawable/fundo">
 
-    <include
-        layout="@layout/app_bar_main"
+    <TextView
+        android:id="@+id/textView4"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:text="Bem Vindo, Faça seu Login:"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="30dp"/>
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
+    <EditText
+        android:id="@+id/txtLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="60"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:hint="Usuário"
+        android:textColorHint="@color/white"
+        android:layout_marginTop="120dp"
+        android:gravity="center_horizontal|center_vertical"
+        />
+
+
+
+    <EditText
+        android:id="@+id/txtSenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Senha"
+        android:textColorHint="@color/white"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="50dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:inputType="textPassword"
+        />
+
+
+    <Button
+        android:id="@+id/botaologin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="Login"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"/>
+
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/botaologin"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <!-- Colocar cardview com as disciplinas-->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerDisciplinas"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:cacheColorHint="@android:color/transparent"
-            android:clipToPadding="false"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            android:listSelector="@android:color/transparent"
-            android:scrollbarStyle="outsideOverlay"
-            android:scrollbars="vertical">
-        </androidx.recyclerview.widget.RecyclerView>
-    </ScrollView>
-</androidx.drawerlayout.widget.DrawerLayout>
+
+</LinearLayout>
