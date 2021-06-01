@@ -28,7 +28,7 @@ class CadastrarActivity : AppCompatActivity() {
     }
 
     fun taskLojas() {
-        lojas = LojaService.getLoja(this)
+        this.lojas = LojaService.getLoja(this)
 // atualizar lista
         recyclerLoja?.adapter = LojaAdapter(lojas) { onClickProduto(it) }
     }
@@ -40,7 +40,6 @@ class CadastrarActivity : AppCompatActivity() {
         intent.putExtra("loja", loja)
         startActivity(intent)
     }
-// código existente - omitido
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

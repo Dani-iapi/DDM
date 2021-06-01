@@ -25,10 +25,10 @@ class LojaAdapter (
         var cardView: CardView
 
         init {
-            cardNome = view.findViewById <TextView> (R.id.cardNome)
-            cardImg = view.findViewById <ImageView> (R.id.cardImg)
-            cardProgress = view.findViewById <ProgressBar> (R.id.cardProgress)
-            cardView = view.findViewById <CardView> (R.id.card_loja)
+            cardNome = view.findViewById (R.id.cardNome)
+            cardImg = view.findViewById (R.id.cardImg)
+            cardProgress = view.findViewById(R.id.cardProgress)
+            cardView = view.findViewById (R.id.card_loja)
         }
     }
 // Quantidade de disciplinas na lista
