@@ -1,5 +1,6 @@
 package br.com.projetoddmpricelessbrains
 
+import com.google.gson.GsonBuilder
 import java.io.Serializable
 
 class Loja : Serializable {
@@ -12,5 +13,9 @@ class Loja : Serializable {
 
     override fun toString(): String {
         return "Produto (nome='$nome')"
+    }
+
+    fun toJson(): String {
+        return GsonBuilder().create().toJson(this)
     }
 }

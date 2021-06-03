@@ -1,5 +1,6 @@
 package br.com.projetoddmpricelessbrains
 
+import LojaAdapter
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.widget.Button
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
@@ -16,9 +18,11 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.activity_home.layoutMenuLateral
 import androidx.drawerlayout.widget.DrawerLayout
+import kotlinx.android.synthetic.main.activity_cadastrar.*
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private val context: Context get() = this
+    private var lojas = listOf<Loja>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -81,10 +85,43 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             } else if (id == R.id.action_sair) {
                 startActivity(Intent(this@HomeActivity, MainActivity::class.java))
                 return true
+            } else if (id == R.id.action_adicionar) {
+// iniciar activity de cadastro
+                val intent = Intent(context, AdicionaRemoveActivity::class.java)
+                startActivityForResult(intent, REQUEST_CADASTRO)
             }
 
             return super.onOptionsItemSelected(item)
         }
+
+    private var REQUEST_CADASTRO = 1
+    private var REQUEST_REMOVE= 2
+
+    // esperar o retorno do cadastro da disciplina
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CADASTRO || requestCode == REQUEST_REMOVE ) {
+// atualizar lista de disciplinas
+            taskLojas()
+        }
+    }
+
+    fun taskLojas() {
+
+        Thread {
+            this.lojas = LojaService.getLoja()
+            runOnUiThread{
+// atualizar lista
+                recyclerLoja?.adapter = LojaAdapter(lojas) { onClickProduto(it) }
+            }}.start()
+    }
+
+    fun onClickProduto(loja: Loja) {
+        Toast.makeText(this, "Clicou no ${loja.nome}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, LojaActivity::class.java)
+        intent.putExtra("loja", loja)
+        startActivity(intent)
+    }
 
     private fun configuraMenuLateral() {
 // ícone de menu (hamburger) para mostrar o menu
@@ -108,8 +145,18 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Toast.makeText(this, "Clicou Proprietários", Toast.LENGTH_SHORT).show()
             }
             R.id.nav_sair -> {
-                Toast.makeText(this, "Clicou Sair", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this@HomeActivity, MainActivity::class.java))
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Dog\'s Center")
+                    .setMessage("Deseja mesmo sair?")
+                    .setPositiveButton("Sim") {
+                          dialog, id ->
+                        dialog.dismiss()
+                        startActivity(Intent(this@HomeActivity, MainActivity::class.java))
+
+                } .setNegativeButton("Não") {
+                        dialog, id -> dialog.dismiss()
+                }
+                builder.create().show()
                 return true
             }
             R.id.nav_agenda -> {

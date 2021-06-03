@@ -28,9 +28,13 @@ class CadastrarActivity : AppCompatActivity() {
     }
 
     fun taskLojas() {
-        this.lojas = LojaService.getLoja(this)
+
+        Thread {
+            this.lojas = LojaService.getLoja()
+            runOnUiThread{
 // atualizar lista
-        recyclerLoja?.adapter = LojaAdapter(lojas) { onClickProduto(it) }
+            recyclerLoja?.adapter = LojaAdapter(lojas) { onClickProduto(it) }
+        }}.start()
     }
 
     // tratamento do evento de clicar em uma disciplina
@@ -47,8 +51,11 @@ class CadastrarActivity : AppCompatActivity() {
         if (id == android.R.id.home) {
             finish()
         }
+
         return super.onOptionsItemSelected(item!!)
     }
+
+
 }
 
 

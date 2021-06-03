@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "665233673083",
+    "project_id": "opesispet",
+    "storage_bucket": "opesispet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:665233673083:android:c9c6ccc11da98965888bde",
+        "android_client_info": {
+          "package_name": "br.com.projetoddmpricelessbrains"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "665233673083-6nlr7hdalt0t6eljsdne96h0bks1eion.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKh3dfpFPaWlkbNKKJEA4sIPU3CBBg9os"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "665233673083-6nlr7hdalt0t6eljsdne96h0bks1eion.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

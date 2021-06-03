@@ -14,14 +14,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val button = findViewById<Button>(R.id.botaologin);
         button.setOnClickListener {
-         //   if (findViewById<EditText>(R.id.txtLogin).text.toString() == "aluno" && findViewById<EditText>(R.id.txtSenha).text.toString() == "impacta"){
+           if (findViewById<EditText>(R.id.txtLogin).text.toString() == "aluno" && findViewById<EditText>(R.id.txtSenha).text.toString() == "impacta"){
 
                startActivity(Intent(this@MainActivity, HomeActivity::class.java))
-         //   }else{
-          //      findViewById<TextView>(R.id.textView).text = "Usuário ou senha incorretos"
-           //     Toast.makeText(this,"Usuário ou senha incorretos", Toast.LENGTH_SHORT).show()
+            }else{
+                findViewById<TextView>(R.id.textView).text = "Usuário ou senha incorretos"
+                Toast.makeText(this,"Usuário ou senha incorretos", Toast.LENGTH_SHORT).show()
             }
-      //  }
+        }
 
     }
 }
+

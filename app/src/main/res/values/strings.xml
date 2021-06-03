@@ -2,7 +2,8 @@
     <string name="app_name">Dog\'s Center</string>
     <string name="action_buscar">Buscar</string>
     <string name="action_sair">Sair</string>
-    <string name="action_cadastrar">Cadastrar</string>
+    <string name="action_cadastrar">Catálogo</string>
     <string name="navigation_drawer_open">Abrir</string>
     <string name="navigation_drawer_close">Fechar</string>
+    <string name="action_adicionar">Cadastrar</string>
 </resources>
