@@ -1,6 +1,7 @@
 package br.com.projetoddmpricelessbrains
 
 import LojaAdapter
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -30,7 +31,7 @@ class CadastrarActivity : AppCompatActivity() {
     fun taskLojas() {
 
         Thread {
-            this.lojas = LojaService.getLoja()
+            this.lojas = LojaService.getLoja(this)
             runOnUiThread{
 // atualizar lista
             recyclerLoja?.adapter = LojaAdapter(lojas) { onClickProduto(it) }

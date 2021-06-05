@@ -109,7 +109,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fun taskLojas() {
 
         Thread {
-            this.lojas = LojaService.getLoja()
+            this.lojas = LojaService.getLoja(context)
             runOnUiThread{
 // atualizar lista
                 recyclerLoja?.adapter = LojaAdapter(lojas) { onClickProduto(it) }

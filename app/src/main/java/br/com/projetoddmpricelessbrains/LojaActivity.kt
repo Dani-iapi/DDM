@@ -4,12 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_loja.*
-import kotlinx.android.synthetic.main.loja_adapter.*
 import kotlinx.android.synthetic.main.toolbar.*
-import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
+import br.com.projetoddmpricelessbrains.LojaService.delete
 
 class LojaActivity : AppCompatActivity() {
     var loja: Loja? = null
@@ -48,7 +47,7 @@ class LojaActivity : AppCompatActivity() {
             AlertDialog.Builder(this)
 
                 .setTitle(R.string.app_name)
-                .setMessage("Deseja excluir a disciplina")
+                .setMessage("Deseja excluir o produto")
                 .setPositiveButton("Sim") {
                         dialog, which ->
                     dialog.dismiss()
@@ -71,7 +70,7 @@ class LojaActivity : AppCompatActivity() {
         if (this.loja != null && this.loja is Loja) {
 // Thread para remover a disciplina
             Thread {
-                LojaService.delete(this.loja as Loja)
+                delete(this.loja as Loja)
                 runOnUiThread {
 // após remover, voltar para activity anterior
                     finish()
