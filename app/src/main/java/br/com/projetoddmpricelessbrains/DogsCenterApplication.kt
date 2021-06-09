@@ -1,7 +1,14 @@
-package br.com.projetoddmpricelessbrains
+/*
+Baseado nos códigos do livro
+LECHETA, R. R. Android Essencial com Kotlin. Edição: 1ª ed. Novatec, 2017. 
+
+Código original: https://github.com/livroandroid/kotlin-essencial-1ed
+*/
+
+package com.example.jlima
 
 import android.app.Application
-
+import java.lang.IllegalStateException
 
 class DogsCenterApplication: Application() {
     // chamado quando android iniciar o processo da aplicação

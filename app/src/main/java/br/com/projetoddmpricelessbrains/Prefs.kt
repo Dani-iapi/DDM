@@ -5,8 +5,9 @@ LECHETA, R. R. Android Essencial com Kotlin. Edição: 1ª ed. Novatec, 2017.
 Código original: https://github.com/livroandroid/kotlin-essencial-1ed
 */
 
-package br.com.projetoddmpricelessbrains
+package com.example.jlima
 
+import android.content.Context
 import android.content.SharedPreferences
 
 object Prefs {
